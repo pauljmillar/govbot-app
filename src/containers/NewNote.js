@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { invokeApig, s3Upload } from "../libs/awsLib";
 import config from "../config";
@@ -71,24 +71,24 @@ export default class NewNote extends Component {
     return (
       <div className="NewNote">
         <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="content">
-            <FormControl
+          <Form.Group controlId="content">
+            <Form.Control
               onChange={this.handleChange}
               value={this.state.content}
               componentClass="textarea"
             />
-          </FormGroup>
-          <FormGroup controlId="cityname">
-            <FormControl
+          </Form.Group>
+          <Form.Group controlId="cityname">
+            <Form.Control
               onChange={this.handleChange}
               value={this.state.cityname}
               componentClass="input"
             />
-          </FormGroup>
-          <FormGroup controlId="file">
-            <ControlLabel>Attachment</ControlLabel>
-            <FormControl onChange={this.handleFileChange} type="file" />
-          </FormGroup>
+          </Form.Group>
+          <Form.Group controlId="file">
+          <Form.Label>Attachment</Form.Label>
+            <Form.Control onChange={this.handleFileChange} type="file" />
+          </Form.Group>
           <LoaderButton
             block
             bsStyle="primary"

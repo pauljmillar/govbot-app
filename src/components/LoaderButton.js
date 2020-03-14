@@ -15,6 +15,6 @@ export default ({
     disabled={disabled || isLoading}
     {...props}
   >
-    {isLoading && <Glyphicon glyph="refresh" className="spinning" />}
+    {isLoading && <Glyphicon glyph="star" />}
     {!isLoading ? text : loadingText}
   </Button>;

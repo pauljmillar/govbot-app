@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Nav, NavItem, Navbar } from "react-bootstrap";
 import Routes from "./Routes";
 import { authUser, signOutUser } from "./libs/awsLib";
@@ -53,7 +53,7 @@ class App extends Component {
         <Navbar fluid collapseOnSelect>
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to="/">Govbot</Link>
+            <a href="/">GovBot</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>

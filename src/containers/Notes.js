@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import { invokeApig, s3Upload } from "../libs/awsLib";
 import config from "../config";
@@ -130,24 +130,24 @@ export default class Notes extends Component {
       <div className="Notes">
         {this.state.note &&
           <form onSubmit={this.handleSubmit}>
-            <FormGroup controlId="cityphone">
-              <FormControl
+            <Form.Group controlId="cityphone">
+              <Form.Control
                 onChange={this.handleChange}
                 value={this.state.cityphone}
                 componentClass="textarea"
               />
-            </FormGroup>
-          <FormGroup controlId="cityname">
-            <FormControl
+            </Form.Group>
+          <Form.Group controlId="cityname">
+            <Form.Control
               onChange={this.handleChange}
               value={this.state.cityname}
               componentClass="input"
-            />  
-            </FormGroup>
-            {this.state.note.attachment &&
-              <FormGroup>
-                <ControlLabel>Attachment</ControlLabel>
-                <FormControl.Static>
+            />
+            </Form.Group>
+            {this.state.note.attachment}
+              <Form.Group>
+              <Form.Label>Attachment</Form.Label>
+                <Form.Control.Static>
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
@@ -155,13 +155,15 @@ export default class Notes extends Component {
                   >
                     {this.formatFilename(this.state.note.attachment)}
                   </a>
-                </FormControl.Static>
-              </FormGroup>}
-            <FormGroup controlId="file">
-              {!this.state.note.attachment &&
-                <ControlLabel>Attachment</ControlLabel>}
-              <FormControl onChange={this.handleFileChange} type="file" />
-            </FormGroup>
+                </Form.Control.Static>
+              </Form.Group>}
+            <Form.Group controlId="file">
+            <Form>
+              {!this.state.note.attachment}
+                <Form.Label>Attachment</Form.Label>
+              <Form.Control onChange={this.handleFileChange} type="file" />
+              </Form>
+            </Form.Group>
             <LoaderButton
               block
               bsStyle="primary"
