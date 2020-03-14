@@ -13,7 +13,8 @@ export default class NewNote extends Component {
 
     this.state = {
       isLoading: null,
-      content: ""
+      content: "",
+      cityname: ""
     };
   }
 
@@ -56,6 +57,7 @@ export default class NewNote extends Component {
 
       await this.createNote({
         content: this.state.content,
+        cityname: this.state.cityname,
         attachment: uploadedFilename
       });
       this.props.history.push("/");
@@ -74,6 +76,13 @@ export default class NewNote extends Component {
               onChange={this.handleChange}
               value={this.state.content}
               componentClass="textarea"
+            />
+          </FormGroup>
+          <FormGroup controlId="cityname">
+            <FormControl
+              onChange={this.handleChange}
+              value={this.state.cityname}
+              componentClass="input"
             />
           </FormGroup>
           <FormGroup controlId="file">

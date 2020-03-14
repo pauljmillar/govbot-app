@@ -5,12 +5,14 @@ export default {
   },
   apiGateway: {
     REGION: "us-east-1",
-    URL: "https://5by75p4gn3.execute-api.us-east-1.amazonaws.com/prod"
+   //orig URL: "https://5by75p4gn3.execute-api.us-east-1.amazonaws.com/prod"
+   //URL: "https://coz0ig8x51.execute-api.us-east-1.amazonaws.com/prod"
+    URL: "https://jlpmalgb3k.execute-api.us-east-1.amazonaws.com/prod"
   },
   cognito: {
     REGION: "us-east-1",
-    USER_POOL_ID: "us-east-1_udmFFSb92",
-    APP_CLIENT_ID: "4hmari2sqvskrup67crkqa4rmo",
-    IDENTITY_POOL_ID: "us-east-1:ceef8ccc-0a19-4616-9067-854dc69c2d82"
+    USER_POOL_ID: "us-east-1_pjBTwpxe8",
+    APP_CLIENT_ID: "2ahapmpo1h2462c7978257m1qu",
+    IDENTITY_POOL_ID: "us-east-1:4fb14d01-c595-4f08-aeb4-fb0489ca0bdb"
   }
 };

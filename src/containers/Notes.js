@@ -15,7 +15,8 @@ export default class Notes extends Component {
       isLoading: null,
       isDeleting: null,
       note: null,
-      content: ""
+      cityphone: "",
+      cityname: ""
     };
   }
 
@@ -24,7 +25,8 @@ export default class Notes extends Component {
       const results = await this.getNote();
       this.setState({
         note: results,
-        content: results.content
+        cityphone: results.cityphone,
+        cityname: results.cityname
       });
     } catch (e) {
       alert(e);
@@ -51,7 +53,7 @@ export default class Notes extends Component {
   }
 
   validateForm() {
-    return this.state.content.length > 0;
+    return true; //this.state.content.length > 0;
   }
 
   formatFilename(str) {
@@ -90,7 +92,8 @@ export default class Notes extends Component {
 
       await this.saveNote({
         ...this.state.note,
-        content: this.state.content,
+        cityphone: this.state.cityphone,
+        cityname: this.state.cityname,
         attachment: uploadedFilename || this.state.note.attachment
       });
       this.props.history.push("/");
@@ -127,12 +130,19 @@ export default class Notes extends Component {
       <div className="Notes">
         {this.state.note &&
           <form onSubmit={this.handleSubmit}>
-            <FormGroup controlId="content">
+            <FormGroup controlId="cityphone">
               <FormControl
                 onChange={this.handleChange}
-                value={this.state.content}
+                value={this.state.cityphone}
                 componentClass="textarea"
               />
+            </FormGroup>
+          <FormGroup controlId="cityname">
+            <FormControl
+              onChange={this.handleChange}
+              value={this.state.cityname}
+              componentClass="input"
+            />  
             </FormGroup>
             {this.state.note.attachment &&
               <FormGroup>
