@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Panel, ListGroupItem } from "react-bootstrap";
+import { Panel, ListGroupItem, PanelGroup } from "react-bootstrap";
 import { Col } from "react-bootstrap";
-import { Alert, Form, Button, FormGroup, FormControl, ControlLabel, Checkbox } from "react-bootstrap";
+import { Alert, Form, Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import { invokeApig } from '../libs/awsLib';
 import "./Home.css";
 
@@ -289,252 +289,190 @@ export default class Home extends Component {
       <div className="govs">
         <h1>Your Bot Config</h1>
         <Panel header={<div><h4>This is your key: {this.state.govId}.</h4></div>}>
-<p>Copy and paste the following code snippet into the body of your html page:</p>
-<code>&lt;div id="govbot"&gt;&lt;/div&gt;</code><br/>
-<code>&lt;script src="http://dev.getgovbot.com/govbot.prod.js"&gt;&lt;/script&gt;</code><br/>
-<code>&lt;script&gt;</code><br/>
-<code>&nbsp;&nbsp;var myGovbot = BotLib.GB.new();</code><br/>
-<code>&nbsp;&nbsp;myGovbot.render&#40;&#123; govId &#58; &#34;{this.state.govId}&#34; &#125;&#41;&#59;</code><br/>
-<code>&lt;/script&gt;</code>
+          <Panel.Heading>
+            <Panel.Title>{<div><h4>This is your key: {this.state.govId}.</h4></div>}</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body >
+            <p>Copy and paste the following code snippet into the body of your html page:</p>
+            <code>&lt;div id="govbot"&gt;&lt;/div&gt;</code><br/>
+            <code>&lt;script src="http://dev.getgovbot.com/govbot.prod.js"&gt;&lt;/script&gt;</code><br/>
+            <code>&lt;script&gt;</code><br/>
+            <code>&nbsp;&nbsp;var myGovbot = BotLib.GB.new();</code><br/>
+            <code>&nbsp;&nbsp;myGovbot.render&#40;&#123; govId &#58; &#34;{this.state.govId}&#34; &#125;&#41;&#59;</code><br/>
+            <code>&lt;/script&gt;</code>
+          </Panel.Body>
         </Panel>
 
 
         { this.state.showsaved ? alertInstance : null }
 
+        <PanelGroup accordion id="accordion-example">
+          <Panel eventKey="1">
+            <Panel.Heading>
+              <Panel.Title toggle>Muni Info</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body collapsible>
+            <Form onSubmit={this.handleSubmit}>
+              <FormGroup controlId="cityname">
+                <ControlLabel>cityname</ControlLabel>
+                <FormControl type="input" placeholder="Chicago" onChange={this.handleChange} value={this.state.cityname} componentClass="input"/>
+              </FormGroup>
 
-  <Panel  header="Municipal Profile Info"  defaultExpanded={true}>
-  <form horizontal="true" onSubmit={this.handleSubmit}>
-    <FormGroup controlId="cityname">
-    <ControlLabel>cityname</ControlLabel>
-      <Col sm={10}>
-        <FormControl type="input" placeholder="Chicago" onChange={this.handleChange} value={this.state.cityname} componentClass="input"/>
-      </Col>
-    </FormGroup>
+              <FormGroup controlId="cityphone">
+                <ControlLabel>cityphone</ControlLabel>
+                <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.cityphone} componentClass="input"/>
+              </FormGroup>
 
-    <FormGroup controlId="cityphone">
-    <ControlLabel>cityphone</ControlLabel>
-      <Col sm={10}>
-        <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.cityphone} componentClass="input"/>
-      </Col>
-    </FormGroup>
+              <FormGroup controlId="cityemail">
+                <ControlLabel>cityemail</ControlLabel>
+                <FormControl type="input" placeholder="admin@city.gov" onChange={this.handleChange} value={this.state.cityemail} componentClass="input"/>
+              </FormGroup>
 
-    <FormGroup controlId="cityemail">
-      <ControlLabel>cityemail</ControlLabel>
-      <Col sm={10}>
-        <FormControl type="input" placeholder="admin@city.gov" onChange={this.handleChange} value={this.state.cityemail} componentClass="input"/>
-      </Col>
-    </FormGroup>
+              <FormGroup controlId="gethours">
+                <ControlLabel>gethours</ControlLabel>
+                <FormControl type="input" placeholder="city.gov" onChange={this.handleChange} value={this.state.gethours} componentClass="input"/>
+              </FormGroup>
 
+              <FormGroup>
+                  <Button bsStyle="primary" type="submit">Update</Button>
+                  <Col sm={10}>{"Updated: " + new Date(this.state.updatedAt).toLocaleString()}</Col>
+              </FormGroup>
+            </Form>
 
+            </Panel.Body>
+          </Panel>
 
-    <FormGroup controlId="gethours">
-    <ControlLabel>gethours</ControlLabel>
-      <Col sm={10}>
-        <FormControl type="input" placeholder="city.gov" onChange={this.handleChange} value={this.state.gethours} componentClass="input"/>
-      </Col>
-    </FormGroup>
+          <Panel eventKey="2">
+            <Panel.Heading>
+              <Panel.Title toggle>About Your Bot</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body collapsible>
+            <Form  onSubmit={this.handleSubmit}>
+              <FormGroup controlId="howareyou">
+                <ControlLabel>howareyou</ControlLabel>
+                <FormControl type="input" placeholder="Hello. How can I help you today?" onChange={this.handleChange} value={this.state.howareyou} componentClass="input"/>
+              </FormGroup>
 
-    <FormGroup>
-    <Checkbox defaultChecked >
-      Remember Me
-    </Checkbox>
-    </FormGroup>
+              <FormGroup controlId="intromessage">
+                <ControlLabel>intromessage</ControlLabel>
+                <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.intromessage} componentClass="input"/>
+              </FormGroup>
 
-    <FormGroup>
-      <Col smOffset={2} sm={10}>
-        <Button type="submit">
-          Update
-        </Button>
-              {"Updated: " + new Date(this.state.updatedAt).toLocaleString()}
+              <FormGroup controlId="goodbye">
+                <ControlLabel>goodbye</ControlLabel>
+                <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.goodbye} componentClass="input"/>
+              </FormGroup>
 
-      </Col>
-    </FormGroup>
-  </form>
-  </Panel>
+              <FormGroup>
+                  <Button bsStyle="primary" type="submit">Update</Button>
+                  <Col sm={10}>{"Updated: " + new Date(this.state.updatedAt).toLocaleString()}</Col>
+              </FormGroup>
+            </Form>
 
+            </Panel.Body>
+          </Panel>
+          <Panel eventKey="3">
+            <Panel.Heading>
+              <Panel.Title toggle>Parking</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body collapsible>
+            <Form onSubmit={this.handleSubmit}>
+              <FormGroup controlId="violationofficehours">
+                <ControlLabel>violationofficehours</ControlLabel>
+                <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationofficehours} componentClass="input"/>
+              </FormGroup>
 
-  <Panel  header="About your bot" >
-  <form horizontal="true" onSubmit={this.handleSubmit}>
-    <FormGroup controlId="howareyou">
-    <ControlLabel>howareyou</ControlLabel>
+              <FormGroup controlId="violationpay">
+                <ControlLabel>violationpay</ControlLabel>
+                <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationpay} componentClass="input"/>
+              </FormGroup>
 
-      <Col sm={10}>
-        <FormControl type="input" placeholder="Hello. How can I help you today?" onChange={this.handleChange} value={this.state.howareyou} componentClass="input"/>
-      </Col>
-    </FormGroup>
+              <FormGroup controlId="violationcontest">
+                <ControlLabel>violationcontest</ControlLabel>
+                <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationcontest} componentClass="input"/>
+              </FormGroup>
 
-    <FormGroup controlId="intromessage">
-    <ControlLabel>intromessage</ControlLabel>
+              <FormGroup controlId="violationlost">
+                <ControlLabel>violationlost</ControlLabel>
+                <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationlost} componentClass="input" />
+              </FormGroup>
 
-      <Col sm={10}>
-        <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.intromessage} componentClass="input"/>
-      </Col>
-    </FormGroup>
+              <FormGroup controlId="violationmissed">
+                <ControlLabel>violationmissed</ControlLabel>
+                <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationmissed} componentClass="input"/>
+              </FormGroup>
 
-    <FormGroup controlId="goodbye">
-    <ControlLabel>goodbye</ControlLabel>
+              <FormGroup>
+                  <Button bsStyle="primary" type="submit">Update</Button>
+                  <Col sm={10}>{"Updated: " + new Date(this.state.updatedAt).toLocaleString()}</Col>
+              </FormGroup>
+            </Form>
+            </Panel.Body>
+          </Panel>
 
-      <Col sm={10}>
-        <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.goodbye} componentClass="input"/>
-      </Col>
-    </FormGroup>
+        <Panel eventKey="4">
+          <Panel.Heading>
+            <Panel.Title toggle>Water Service, Billing</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body collapsible>
+          <Form onSubmit={this.handleSubmit}>
+            <FormGroup controlId="waterservicestart">
+              <ControlLabel>waterservicestart</ControlLabel>
+              <FormControl type="input" placeholder="Chicago" onChange={this.handleChange} value={this.state.waterservicestart} componentClass="input"/>
+            </FormGroup>
 
-    <FormGroup>
-      <Col smOffset={2} sm={10}>
-        <Button type="submit">
-          Save
-        </Button>
+            <FormGroup controlId="waterservicestop">
+              <ControlLabel>waterservicestop</ControlLabel>
+              <FormControl type="input" placeholder="You can request a stop to your.." onChange={this.handleChange} value={this.state.waterservicestop} componentClass="input"/>
+            </FormGroup>
 
-      </Col>
-    </FormGroup>
-  </form>
-  </Panel>
+            <FormGroup controlId="waterservicepay">
+              <ControlLabel>waterservicepay</ControlLabel>
+              <FormControl type="input" placeholder="admin@city.gov" onChange={this.handleChange} value={this.state.waterservicepay} componentClass="input"/>
+            </FormGroup>
 
+            <FormGroup controlId="waterservicedetails">
+              <ControlLabel>waterservicedetails</ControlLabel>
+              <FormControl type="input" placeholder="city.gov" onChange={this.handleChange} value={this.state.waterservicedetails} componentClass="input"/>
+            </FormGroup>
 
-  <Panel header="Parking" >
-  <form horizontal="true" onSubmit={this.handleSubmit}>
-    <FormGroup controlId="violationofficehours">
-    <ControlLabel>violationofficehours</ControlLabel>
+            <FormGroup>
+                <Button bsStyle="primary" type="submit">Update</Button>
+                <Col sm={10}>{"Updated: " + new Date(this.state.updatedAt).toLocaleString()}</Col>
+            </FormGroup>
+          </Form>
+          </Panel.Body>
+        </Panel>
 
-      <Col sm={10}>
-        <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationofficehours} componentClass="input"/>
-      </Col>
-    </FormGroup>
+      <Panel eventKey="5">
+        <Panel.Heading>
+          <Panel.Title toggle>Misc. Things to Report</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body collapsible>
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="reportpothole">
+            <ControlLabel>reportpothole</ControlLabel>
+            <FormControl type="input" placeholder="Chicago" onChange={this.handleChange} value={this.state.reportpothole} componentClass="input"/>
+          </FormGroup>
 
-    <FormGroup controlId="violationpay">
-    <ControlLabel>violationpay</ControlLabel>
+          <FormGroup controlId="reportstreetlight">
+            <ControlLabel>reportstreetlight</ControlLabel>
+            <FormControl type="input" placeholder="You can request a stop to your.." onChange={this.handleChange} value={this.state.reportstreetlight} componentClass="input"/>
+          </FormGroup>
 
-      <Col sm={10}>
-        <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationpay} componentClass="input"/>
-      </Col>
-    </FormGroup>
+          <FormGroup controlId="reportgraffiti">
+            <ControlLabel>reportgraffiti</ControlLabel>
+            <FormControl type="input" placeholder="admin@city.gov" onChange={this.handleChange} value={this.state.reportgraffiti} componentClass="input"/>
+          </FormGroup>
 
-    <FormGroup controlId="violationcontest">
-    <ControlLabel>violationcontest</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationcontest} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup controlId="violationlost">
-    <ControlLabel>violationlost</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationlost} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup controlId="violationmissed">
-    <ControlLabel>violationmissed</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="111-222-3333" onChange={this.handleChange} value={this.state.violationmissed} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup>
-    <Checkbox defaultChecked >
-      Checkbox
-    </Checkbox>
-    </FormGroup>
-
-    <FormGroup>
-      <Col smOffset={2} sm={10}>
-        <Button type="submit">
-          Save
-        </Button>
-
-      </Col>
-    </FormGroup>
-  </form>
-  </Panel>
-
-  <Panel  header="Water Service and Billing Questions"  >
-  <form horizontal="true" onSubmit={this.handleSubmit}>
-    <FormGroup controlId="waterservicestart">
-    <ControlLabel>waterservicestart</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="Chicago" onChange={this.handleChange} value={this.state.waterservicestart} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup controlId="waterservicestop">
-    <ControlLabel>waterservicestop</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="You can request a stop to your.." onChange={this.handleChange} value={this.state.waterservicestop} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup controlId="waterservicepay">
-    <ControlLabel>waterservicepay</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="admin@city.gov" onChange={this.handleChange} value={this.state.waterservicepay} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup controlId="waterservicedetails">
-    <ControlLabel>waterservicedetails</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="city.gov" onChange={this.handleChange} value={this.state.waterservicedetails} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup>
-      <Col smOffset={2} sm={10}>
-        <Button type="submit">
-          Update
-        </Button>
-              {"Updated: " + new Date(this.state.updatedAt).toLocaleString()}
-
-      </Col>
-    </FormGroup>
-  </form>
-  </Panel>
-
-
-
-  <Panel header="Things to Report"  >
-  <form horizontal="true" onSubmit={this.handleSubmit}>
-    <FormGroup controlId="reportpothole">
-    <ControlLabel>reportpothole</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="Chicago" onChange={this.handleChange} value={this.state.reportpothole} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup controlId="reportstreetlight">
-    <ControlLabel>reportstreetlight</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="You can request a stop to your.." onChange={this.handleChange} value={this.state.reportstreetlight} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup controlId="reportgraffiti">
-    <ControlLabel>reportgraffiti</ControlLabel>
-
-      <Col sm={10}>
-        <FormControl type="input" placeholder="admin@city.gov" onChange={this.handleChange} value={this.state.reportgraffiti} componentClass="input"/>
-      </Col>
-    </FormGroup>
-
-    <FormGroup>
-      <Col smOffset={2} sm={10}>
-        <Button type="submit">
-          Update
-        </Button>
-              {"Updated: " + new Date(this.state.updatedAt).toLocaleString()}
-
-      </Col>
-    </FormGroup>
-  </form>
-  </Panel>
+          <FormGroup>
+              <Button bsStyle="primary" type="submit">Update</Button>
+              <Col sm={10}>{"Updated: " + new Date(this.state.updatedAt).toLocaleString()}</Col>
+          </FormGroup>
+        </Form>
+        </Panel.Body>
+      </Panel>
+    </PanelGroup>
 
       </div>
     );

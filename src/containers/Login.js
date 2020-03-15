@@ -4,7 +4,7 @@ import {
   AuthenticationDetails,
   CognitoUser
 } from "amazon-cognito-identity-js";
-import { Form } from "react-bootstrap";
+import { Form, FormGroup, ControlLabel, FormControl } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 import config from "../config";
 import "./Login.css";
@@ -64,24 +64,24 @@ export default class Login extends Component {
   render() {
     return (
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="email" bsSize="large">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup controlId="email" bsSize="large">
+          <ControlLabel>Email</ControlLabel>
+            <FormControl
               autoFocus
               type="email"
               value={this.state.email}
               onChange={this.handleChange}
             />
-          </Form.Group>
-          <Form.Group controlId="password" bsSize="large">
-          <Form.Label>Password</Form.Label>
-            <Form.Control
+          </FormGroup>
+          <FormGroup controlId="password" bsSize="large">
+          <ControlLabel>Password</ControlLabel>
+            <FormControl
               value={this.state.password}
               onChange={this.handleChange}
               type="password"
             />
-          </Form.Group>
+          </FormGroup>
           <LoaderButton
             block
             bsSize="large"
@@ -91,7 +91,7 @@ export default class Login extends Component {
             text="Login"
             loadingText="Logging in…"
           />
-        </form>
+        </Form>
       </div>
     );
   }
